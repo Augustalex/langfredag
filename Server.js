@@ -33,7 +33,7 @@ module.exports = function () {
         let app = express();
         app.use(handleBody);
         app.get('/', (req, res) => {
-            res.end('Hej ;) P.S. pung');
+            res.end('Hej ;) P.S. pung ⚽🍆⚽<');
         });
         app.post('/settlePlanet', systemController.settlePlanet);
         app.get('/planets', systemController.getPlanets);
