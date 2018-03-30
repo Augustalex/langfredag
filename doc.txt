@@ -1,4 +1,21 @@
 
 [GET]/planets - returns json list with available planets
 [POST]/destroy-planet - removes planet from server
+
+[GET]/planet/:planetName - returns planet info
+[GET]/planet/:planetName/plans - returns all buildings available for construction
+[POST]/planet/:planetName/construct - construct building on planet
+
+[GET]/planet/:planetName/workForce - returns details about workforce on planet
+
+[POST]/transit - transfers said material between two planets in different systems (or within the same system)
+    {
+        sourceIp: '192.168.0.2',
+        sourcePlanet: 'Tellus',
+        targetIp: '192.168.0.2',
+        targetPlanetName: 'Ure anus',
+        material: 'wood',
+        quantity: 1
+    }
+
 [POST]/pung - posts a pair of balls to a planets local postal service
