@@ -1,3 +1,3 @@
 while(true) {
-    console.log('pung')
+    console.log('pung.')
 }
