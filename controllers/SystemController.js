@@ -1,24 +1,6 @@
 
-let planetDB = [
-    {
-        name: 'Mars',
-        owner: 'Elon Musk'
-    },
-    {
-        name: 'Tellus',
-        owner: 'Samuel den store'
-    },
-    {
-        name: 'Pungus',
-        owner: 'Kung Pung IV'
-    },
-    {
-        name: 'Ur anus',
-        owner: 'Din mamma'
-    }
-];
 
-module.exports = function () {
+module.exports = function(planetsDB) {
     return {
         getPlanets,
         settlePlanet,
@@ -26,15 +8,30 @@ module.exports = function () {
     };
 
     function getPlanets(req, res) {
-        res.json(planetDB.map((planet) => planet.name));
+        res.json(planetsDB.getPlanets());
     }
     function settlePlanet(req, res) {
-        let playerId = req.body.playerId;
+        let player = req.body.playerId;
         let planetName = req.body.planetName;
+        console.log(planetName, player);
 
+        try {
+            let planet = planetsDB.settlePlanet(planetName, player);
+            res.status(200);
+            res.json(planet);
+            res.end();
+        }
+        catch(e) {
+            res.status(e.code || 500);
+            res.json(e);
+            res.end();
+        }
     }
-    function destroyPlanet() {
-
+    function destroyPlanet(req, res) {
+        /*
+        let planet = req.body.planetName;
+        planetsDB
+        */
     }
     function pung(req, res) {
 
