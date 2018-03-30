@@ -1,3 +1,3 @@
 while(true) {
-    console.log('pung.')
+    process.stdout.write('pung')
 }
