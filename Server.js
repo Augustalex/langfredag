@@ -51,8 +51,9 @@ module.exports = function () {
         app.get('/', (req, res) => {
             res.end('Hej ;) P.S. pung ⚽🍆⚽<');
         });
-        app.post('/settle-planet', errorHandler(planetsController.settlePlanet));
         app.get('/planets', errorHandler(planetsController.getPlanets));
+        app.post('/settle-planet', errorHandler(planetsController.settlePlanet));
+        app.post('/destroy-planet', errorHandler(planetsController.destroyPlanet));
         app.listen(3000, '0.0.0.0', () => {
             console.log("Solar system is now running");
         });

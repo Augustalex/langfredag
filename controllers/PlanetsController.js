@@ -21,20 +21,20 @@ module.exports = function(planetsDB) {
         if(!planet) {
             throw {
                 code: 404,
-                message: 'Invalid planet ' + planet,
+                message: 'Invalid planet ' + planet + ' 👽💩',
             };
         }
         else if(planet.owner) {
             if(planet.owner === player) {
                 throw {
                     code: 418,
-                    message: 'You already own this planet',
+                    message: 'You already own this planet 😂',
                 }
             }
             else {
                 throw {
                     code: 403,
-                    message: 'Planet is already settled by ' + planet.owner,
+                    message: 'Planet is already settled by ' + planet.owner + ' 😐',
                 };
             }
         }
@@ -48,9 +48,24 @@ module.exports = function(planetsDB) {
         }
     }
     function destroyPlanet(req, res) {
-        /*
-        let planet = req.body.planetName;
-        planetsDB
-        */
+        const planetName = req.body.planetName;
+        const planets = planetsDB.getPlanets();
+        const newPlanets = planets
+            .filter(planet => planet.name !== planetName);
+
+        if(newPlanets.length < planets.length) {
+            planetsDB.setPlanets(newPlanets);
+            res.status(200);
+            res.json({
+                message: 'Planet ' + planetName + ' rekt 😂',
+            })
+            res.end();
+        }
+        else {
+            throw {
+                code: 404,
+                message: 'I can haz nutin 2 rekt 😐',
+            };
+        }
     }
 }
