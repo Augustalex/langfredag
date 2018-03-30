@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "clone-deep": "^3.0.1",
     "express": "^4.16.3"
   }
 }

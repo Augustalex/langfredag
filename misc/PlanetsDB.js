@@ -1,11 +1,12 @@
+let cloneDeep = require('clone-deep');
+
 module.exports = function PlanetsDB() {
     let planetsDB;
     init();
 
     return {
         getPlanets,
-        destroyPlanet,
-        settlePlanet,
+        setPlanets,
     };
 
     function init() {
@@ -33,36 +34,9 @@ module.exports = function PlanetsDB() {
         ];
     }
     function getPlanets() {
-        return planetsDB.map((planet) => planet.name);
+        return cloneDeep(planetsDB);
     }
-    function destroyPlanet(planetName) {
-        planetDB = planetsDB.filter((planet) => planet.name !== planetName);
-    }
-    function settlePlanet(planetName, player) {
-        let planet = planetsDB.find(planet => planet.name === planetName);
-        if(!planet) {
-            throw {
-                code: 404,
-                message: 'Invalid planet ' + planet,
-            };
-        }
-        else if(planet.owner) {
-            if(planet.owner === player) {
-                throw {
-                    code: 418,
-                    message: 'You already own this planet',
-                }
-            }
-            else {
-                throw {
-                    code: 403,
-                    message: 'Planet is already settled by ' + planet.owner,
-                };
-            }
-        }
-        else {
-            planet.owner = player;
-            return planet;
-        }
+    function setPlanets(planets) {
+        planetsDB = cloneDeep(planets);
     }
 }
