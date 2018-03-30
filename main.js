@@ -1,3 +1,4 @@
-while(true) {
-    process.stdout.write('pung')
-}
+let Server = require('./Server.js');
+
+let server = Server();
+server.start();
