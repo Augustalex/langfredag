@@ -11,7 +11,9 @@ module.exports = function () {
         app.get('/', (req, res) => {
             res.end('Hej ;) P.S. pung');
         });
-        
-        app.listen(3000, '0.0.0.0');
+
+        app.listen(3000, '0.0.0.0', () => {
+            console.log("Solar system is now running");
+        });
     }
 };
