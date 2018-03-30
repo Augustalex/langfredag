@@ -2,19 +2,23 @@ let express = require('express');
 let SystemController = require('./controllers/SystemController.js');
 
 function handleBody(req, res, next) {
-    var body = [];
-    req.on('data', (chunk) => body.push(chunk));
-    req.on('end', () => {
-        var rawBody = Buffer.concat(body).toString();
-        try {
-            req.body = JSON.parse(rawBody);
-            next();
-        }
-        catch(e) {
-            res.status(400);
-            res.end();
-        }
-    });
+    if(req.method === "POST") {
+        var body = [];
+        req.on('data', (chunk) => body.push(chunk));
+        req.on('end', () => {
+            var rawBody = Buffer.concat(body).toString();
+            try {
+                req.body = JSON.parse(rawBody);
+            }
+            catch(e) {
+                res.status(400);
+                res.end();
+            }
+        });
+    }
+    else {
+        next();
+    }
 }
 
 module.exports = function () {

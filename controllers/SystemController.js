@@ -21,6 +21,7 @@ let planetDB = [
 module.exports = function () {
     return {
         getPlanets,
+        settlePlanet,
         destroyPlanet
     };
 
