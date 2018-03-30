@@ -14,6 +14,7 @@ module.exports = function PlanetsDB() {
             {
                 name: 'Mars',
                 owner: 'Elon Musk',
+                rocketFuel: 100
             },
             {
                 name: 'Tellus',
