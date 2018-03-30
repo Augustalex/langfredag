@@ -4,16 +4,16 @@ let PlanetsController = require('./controllers/PlanetsController.js');
 let PlanetsDB = require('./misc/PlanetsDB.js');
 
 function handleBody(req, res, next) {
-    if(req.method === "POST") {
-        var body = [];
+    if (req.method === "POST") {
+        const body = [];
         req.on('data', (chunk) => body.push(chunk));
         req.on('end', () => {
-            var rawBody = Buffer.concat(body).toString();
+            const rawBody = Buffer.concat(body).toString();
             try {
                 req.body = JSON.parse(rawBody);
                 next();
             }
-            catch(e) {
+            catch (e) {
                 res.status(400);
                 res.end();
             }
@@ -28,7 +28,7 @@ function errorHandler(fn) {
         try {
             fn(req, res);
         }
-        catch(e) {
+        catch (e) {
             res.status(e.code || 500);
             res.json(e);
             res.end();
@@ -37,6 +37,7 @@ function errorHandler(fn) {
 }
 
 module.exports = function () {
+
     return {
         start
     };
