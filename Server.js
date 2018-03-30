@@ -49,7 +49,7 @@ module.exports = function () {
         let app = express();
         app.use(handleBody);
         app.get('/', (req, res) => {
-            res.end('Hej ;) P.S. pung');
+            res.end('Hej ;) P.S. pung ⚽🍆⚽<');
         });
         app.post('/settle-planet', errorHandler(planetsController.settlePlanet));
         app.get('/planets', errorHandler(planetsController.getPlanets));
