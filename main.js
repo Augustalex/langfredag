@@ -1,4 +1,7 @@
-let Server = require('./Server.js');
+const Server = require('./Server.js');
+const AuthService = require('./authService/server.js');
 
-let server = Server();
+const server = Server();
+const authService = AuthService();
 server.start();
+authService.start();

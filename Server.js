@@ -1,42 +1,10 @@
 let express = require('express');
 let SystemController = require('./controllers/SystemController.js');
 let PlanetsController = require('./controllers/PlanetsController.js');
-let PlanetsDB = require('./misc/PlanetsDB.js');
+let PlanetsDB = require('./models/PlanetsDB.js');
 let TransitController = require('./controllers/TransitController.js');
 let ip = require('ip');
-
-function handleBody(req, res, next) {
-    if (req.method === "POST") {
-        const body = [];
-        req.on('data', (chunk) => body.push(chunk));
-        req.on('end', () => {
-            const rawBody = Buffer.concat(body).toString();
-            try {
-                req.body = JSON.parse(rawBody);
-                next();
-            }
-            catch (e) {
-                res.status(400);
-                res.end();
-            }
-        });
-    }
-    else {
-        next();
-    }
-}
-function errorHandler(fn) {
-    return (req, res) => {
-        try {
-            fn(req, res);
-        }
-        catch (e) {
-            res.status(e.code || 500);
-            res.json(e);
-            res.end();
-        }
-    }
-}
+const pungUtils = require('./pungUtils.js');
 
 module.exports = function () {
 
@@ -53,14 +21,14 @@ module.exports = function () {
         let transitController = TransitController({ planetsDB, ownIp });
 
         let app = express();
-        app.use(handleBody);
+        app.use(pungUtils.handleBody);
         app.get('/', (req, res) => {
             res.end('Hej ;) P.S. pung ⚽🍆⚽<');
         });
-        app.get('/planets', errorHandler(planetsController.getPlanets));
-        app.post('/settle-planet', errorHandler(planetsController.settlePlanet));
-        app.post('/destroy-planet', errorHandler(planetsController.destroyPlanet));
-        app.post('/transit', errorHandler(transitController.transit));
+        app.get('/planets', pungUtils.errorHandler(planetsController.getPlanets));
+        app.post('/settle-planet', pungUtils.errorHandler(planetsController.settlePlanet));
+        app.post('/destroy-planet', pungUtils.errorHandler(planetsController.destroyPlanet));
+        app.post('/transit', pungUtils.errorHandler(transitController.transit));
         app.listen(3000, '0.0.0.0', () => {
             console.log("Solar system is now running");
         });
