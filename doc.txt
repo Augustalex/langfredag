@@ -1,3 +1,4 @@
 
 [GET]/planets - returns json list with available planets
 [POST]/destroy-planet - removes planet from server
+[POST]/pung - posts a pair of balls to a planets local postal service

@@ -15,7 +15,8 @@ module.exports = function () {
             res.end('Hej ;) P.S. pung');
         });
         app.get('/planets', systemController.getPlanets);
-
-        app.listen(3000, '0.0.0.0');
+        app.listen(3000, '0.0.0.0', () => {
+            console.log("Solar system is now running");
+        });
     }
 };
