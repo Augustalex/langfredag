@@ -1,0 +1,3 @@
+
+[GET]/planets - returns json list with available planets
+[POST]/destroy-planet - removes planet from server
