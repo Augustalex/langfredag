@@ -2,6 +2,8 @@ let express = require('express');
 let SystemController = require('./controllers/SystemController.js');
 let PlanetsController = require('./controllers/PlanetsController.js');
 let PlanetsDB = require('./misc/PlanetsDB.js');
+let TransitController = require('./controllers/TransitController.js');
+let ip = require('ip');
 
 function handleBody(req, res, next) {
     if (req.method === "POST") {
@@ -46,6 +48,9 @@ module.exports = function () {
         let planetsDB = PlanetsDB();
         let systemController = SystemController(planetsDB);
         let planetsController = PlanetsController(planetsDB);
+        let ownIp = ip.address();
+        console.log('IP', ownIp);
+        let transitController = TransitController({ planetsDB, ownIp });
 
         let app = express();
         app.use(handleBody);
@@ -54,6 +59,7 @@ module.exports = function () {
         });
         app.post('/settle-planet', errorHandler(planetsController.settlePlanet));
         app.get('/planets', errorHandler(planetsController.getPlanets));
+        app.post('/transit', errorHandler(transitController.transit));
         app.listen(3000, '0.0.0.0', () => {
             console.log("Solar system is now running");
         });

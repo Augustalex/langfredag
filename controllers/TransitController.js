@@ -8,9 +8,7 @@ module.exports = function (deps) {
     };
 
     function transit(req, res) {
-
         let {
-
             sourceIp,
             sourcePlanetName,
             playerId,
@@ -18,14 +16,13 @@ module.exports = function (deps) {
             targetPlanetName,
             material,
             quantity
-
         } = req.body;
 
-        if(sourceIp === ownIp && targetIp === ownIp){
+        if (sourceIp === ownIp && targetIp === ownIp) {
             let planets = planetsDb.getPlanets;
 
             let sourcePlanet = planets.find(planet => planet.name === sourcePlanetName);
-            if(sourcePlanet.owner !== playerId){
+            if (sourcePlanet.owner !== playerId) {
                 throw new Error("🐐");
             }
             sourcePlanet[material] -= quantity;
